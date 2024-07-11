@@ -1,0 +1,59 @@
+<html>
+<head>
+    <style>
+        .xxx {
+            background-color: coral
+        }
+        .yyy {
+            background-color: cornflowerblue
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <div>
+            <span>A</span>
+            <span>B</span>
+            <span>C</span>
+        </div>
+        <div>
+            <span>D</span>
+            <span>E</span>
+            <span>F</span>
+        </div>
+        <div>
+            <span>G</span>
+            <span>H</span>
+            <span>I</span>
+        </div>
+    </div>
+</body>
+<script>
+    // TODO
+
+    const rootDiv = document.querySelector('div');
+    const divs = rootDiv.querySelectorAll('div');
+    for (let div of divs) {
+        const spans = div.querySelectorAll('span');
+        spans[0].className ='xxx';
+        spans[2].className='yyy';
+    }
+</script>
+</html>
+</script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

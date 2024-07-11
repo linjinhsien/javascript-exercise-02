@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <div id="nameList">
+        <label for="username">帳號: </label>
+        <input type="text" id="username">
+        <br>
+        <label for="password">密碼: </label>
+        <input type="text" id="password">
+        <br>
+        <button>登入</button>
+    </div> 
+</body>
+<script>
+
+  const username =document.querySelector('#username');
+  const password =document.querySelector('#password');  
+    //將密碼<input>的type屬性值改成'password'
+    document.querySelector('#password').type ='password';
+
+    //替 帳號/密碼 的<input>加上class="login"
+    username.className='login';
+    password.className='login';
+
+</script>
+</html>

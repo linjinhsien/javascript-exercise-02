@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>       
+</head>
+
+<body>      
+      <input>
+</body>
+
+<script>
+
+        const input =document.querySelector('input');
+        const events =['click','change','input','focus','blur']
+        for (let event of events ) {
+            input.addEventListener (event ,() => {
+                console.log(`${new Date()}: ${event}`);
+        })}
+       /*  const input =document.querySelector('input');
+        input.addEventListener ('click' ,() => {
+                console.log(`${new Date()}: click`);
+        });
+        input.addEventListener ('change' ,=() => {
+                console.log(`${new Date()}: change`);
+        });
+        input.addEventListener =('input' ,() => {
+                console.log(`${new Date()}: input`);
+        });
+        input.addEventListener=('focus' ,() => {
+                console.log(`${new Date()}: focus`);
+        });
+        input.addEventListener=('blur' ,() => {
+                console.log(`${new Date()}: blur`);
+        }); */
+</script>

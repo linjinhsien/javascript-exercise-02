@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>       
+</head>
+
+<body>  
+<div>
+        <button>A</button>
+        <button>B</button>
+        <button>C</button>
+        <br>
+        <button>D</button>
+        <button>E</button>
+        <button>F</button>
+        <br>
+        <button>G</button>
+        <button>H</button>
+        <button>I</button>
+
+</div>
+        
+        
+</body>
+
+<script>
+       const div = document.querySelector('div');
+        div.addEventListener('click', (e) => {
+            const button = e.target;
+            alert(`@${button.textContent}`);
+        });
+
+</script>

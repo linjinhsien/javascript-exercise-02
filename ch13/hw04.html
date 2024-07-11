@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>疫苗施打意願登記</title>
+</head>
+
+<body>
+    <!-- 身分證字號輸入框 -->
+    <label for="idNumber">身分證字號：</label>
+    <input type="text" id="idNumber" placeholder="請輸入身分證字號" required>
+    <br>
+    <label>疫苗廠牌：</label>
+    <!-- 第一個疫苗廠牌選擇框 -->
+    <select id="sel0" class="vaccine-brand" name="vaccineBrand">
+        <option value="" disabled selected>(空白)</option>
+        <option value="0">AZ</option>
+        <option value="1">莫德納</option>
+        <option value="2">BNT</option>
+        <option value="3">高端</option>
+    </select>
+    <!-- 用來動態添加其他疫苗廠牌選擇框的容器 -->
+    <div id="vaccine-brands-container"></div>
+
+    <script>
+         // 定義疫苗廠牌對應名稱的物件
+        const brands = {
+            0: 'AZ',
+            1: '莫德納',
+            2: 'BNT',
+            3: '高端'
+        }
+
+        // 當輸入框失去焦點時，檢查身分證格式
+        document.getElementById('idNumber').addEventListener('blur', () => {
+            const identityId = document.getElementById('idNumber').value;
+            if (!identityId.match(/^[a-z](1|2)\d{8}$/i)) {
+                alert('身分證格式錯誤');
+            }
+        })
+
+        // 第一個疫苗廠牌選擇框的事件監聽器
+        let select0 = document.querySelector('#sel0');
+        let chosedBrands0 = {};// 用來記錄已選擇的疫苗廠牌
+        
+        // 更新 `chosedBrands0` 物件，記錄已選擇的疫苗廠牌
+        select0.addEventListener('change', (e) => {
+            let value0 = select0.value;
+            chosedBrands0 = {
+                0: 'AZ',
+                1: '莫德納',
+                2: 'BNT',
+                3: '高端'
+            };
+            // 移除後續的疫苗廠牌選擇框
+            document.querySelector('#sel1')?.remove();
+            document.querySelector('#sel2')?.remove();
+            document.querySelector('#sel3')?.remove();
+            delete chosedBrands0[value0];
+            let select1 = genSelect(chosedBrands0, e.target);
+            // 第二個疫苗廠牌選擇框的事件監聽器
+            select1?.addEventListener('change', (e) => {
+                document.querySelector('#sel2')?.remove();
+                document.querySelector('#sel3')?.remove();
+                
+        // 複製 `chosedBrands0` 物件，避免直接修改原物件
+                let chosedBrands1 = { ...chosedBrands0 };
+                let value1 = select1.value;
+                delete chosedBrands1[value1];
+                let select2 = genSelect(chosedBrands1, e.target);
+                // 第三個疫苗廠牌選擇框的事件監聽器
+                select2?.addEventListener('change', (e) => {
+                    document.querySelector('#sel3')?.remove();
+                    let chosedBrands2 = { ...chosedBrands1 };
+                    let value2 = select2.value;
+                    delete chosedBrands2[value2];
+                    let select3 = genSelect(chosedBrands2, e.target);
+                    // 第四個疫苗廠牌選擇框的事件監聽器
+                    select3?.addEventListener('change', (e) => {
+                        let chosedBrands3 = { ...chosedBrands2 };
+                        let value3 = select3.value;
+                        delete chosedBrands3[value3];
+                    })
+                })
+            });
+        });
+
+       // 生成疫苗廠牌選擇框的函數
+function genSelect(chosedBrands, sel) {
+
+  // 獲取當前選擇框的ID，並提取數字部分（例如將 "sel1" 變成 1）
+  const id = +sel.id.substring(3);
+
+  // 創建新的 `<select>` 元素作為選擇框
+  const select = document.createElement('select');
+  select.className = 'vaccine-brand'; // 設置類名用於樣式
+  select.name = 'vaccineBrand'; // 設置名稱屬性用於表單提交
+  select.id = `sel${id + 1}`; // 生成新的選擇框的唯一ID（例如 "sel2"）
+
+  // 創建一個帶有 disabled 和 selected 屬性的空白選項
+  let option = document.createElement('option');
+  option.textContent = '空白'; // 設置文本內容為 "空白" (Blank)
+  option.setAttribute('disabled', 'disabled'); // 禁用空白選項
+  option.setAttribute('selected', 'selected'); // 將空白選項默認設置為已選中
+  select.appendChild(option); // 將空白選項添加到選擇框中
+
+  // 遍歷 `chosedBrands` 對象（假設包含可供選擇的疫苗廠牌）
+  for (let brand in chosedBrands) {
+    // 為每個疫苗廠牌創建新的 `<option>` 元素
+    let option = document.createElement('option');
+    option.value = brand; // 將選項值設置為疫苗廠牌名稱（`chosedBrands` 中的鍵）
+    option.textContent = chosedBrands[brand]; // 將選項文本內容設置為來自 `brands` 對象的完整疫苗廠牌名稱（假設存在映射）
+    select.appendChild(option); // 將疫苗廠牌選項添加到選擇框中
+  }
+
+  // 將新創建的選擇框添加到容器元素中
+  document.getElementById('vaccine-brands-container').appendChild(select);
+
+  // 返回對新創建的選擇框元素的引用
+  return document.querySelector(`#sel${id + 1}`);
+}
+    </script>
+
+</body>
+
+</html>

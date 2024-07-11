@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- 3.請設計一網頁，含有2個<select>，分別用來 選擇 縣市、火車站，資料如下..
+
+    縣市	站名
+    台北市	南港
+    台北市	松山
+    台北市	台北
+    台北市	萬華
+    新北市	板橋
+    新北市	樹林
+    桃園市	桃園
+    桃園市	中壢
+    新竹縣	湖口
+    新竹縣	竹北
+    新竹市	北新竹
+    新竹市	新竹
+    當使用者在第一個<select>選擇縣市，第二個<select>只能出現該縣市的火車站
+    EX. 第一個<select>選擇"台北市"，第二個<select>只能出現"南港"、"松山"、"台北"、"萬華" -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <select id="citySelect">
+        <option value="0">台北市</option>
+        <option value="1">新北市</option>
+        <option value="2">桃園市</option>
+        <option value="3">新竹縣</option>
+        <option value="4">新竹市</option>
+    </select>
+    <select id='stationSelect'>
+    </select>
+</body>
+
+<script>
+        const cityStationMap ={
+            '0':['南港','松山','台北','萬華'],
+            '1':['板橋','樹林'],
+            '2':['桃園','中壢'],
+            '3':['湖口,竹北'],
+            '4':['北新竹','新竹'],
+        }
+
+        const citySelect =document.querySelector('#citySelect');
+        const stationSelect=document.querySelector('#stationSelect');
+        citySelect.addEventListener('change',()=>{
+            stationSelect.textContent='';
+          const stations=cityStationMap[citySelect.value];
+          for(let station of stations)  {
+            
+                const option =document.createElement('option');
+                option.textContent =station;
+                stationSelect.insertAdjacentElement('beforeend', option);
+
+          } 
+        
+        })
+</script>
+</html>

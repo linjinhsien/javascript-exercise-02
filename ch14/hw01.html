@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        .container {
+            width: 500px;
+            margin: 0 auto;
+            border-radius: 20px;
+            padding: 5px;
+        }
+
+        .border {
+            border: grey 1px solid;
+        }
+
+        .center {
+            text-align: center;
+            margin: 5px;
+        }
+
+        .todo-item {
+            margin: 5px;
+            padding: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative; /* 添加相對定位 */
+        }
+
+        .todo-item button {
+            margin-left: 5px;
+            position: absolute; /* 設置絕對定位 */
+        }
+
+        .todo-item button:nth-child(2) { /* 刪除按鈕 */
+            right: 70px; /* 調整位置 */
+        }
+
+        .todo-item button:nth-child(3) { /* 編輯按鈕 */
+            right: 35px; /* 調整位置 */
+        }
+
+        .todo-item button:nth-child(4) { /* 保存按鈕 */
+            right: 0; /* 調整位置 */
+        }
+
+        .m-1 {
+            margin: 5px;
+        }
+
+        button {
+            width: 30px;
+            height: 30px;
+            border-radius: 15px;
+        }
+
+        .isCompleted {
+            text-decoration: line-through;
+        }
+
+        input {
+            width: 440px;
+            height: 40px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="border container">
+        <h2 class="center">TodoList</h2>
+        <div class="m-1">
+            <input type="text" placeholder=" I am going to do.." id="newTodo">
+            <button class="circle" id="add-todo">➕</button>
+        </div>
+        <div id="todo-list">
+        </div>
+    </div>
+</body>
+<script>
+    const list = [
+        { id: 1, title: 'HTML', completed: true },
+        { id: 2, title: 'CSS', completed: false },
+        { id: 3, title: 'JavaScript', completed: false }
+    ];
+    let nextId = list.length + 1;
+
+    render(list);
+
+    function render(list) {
+        list.sort((a, b) => a.id - b.id);
+        const todoListDiv = document.getElementById('todo-list');
+        todoListDiv.innerHTML = '';
+
+        list.forEach((item, index) => {
+            const todoItem = document.createElement('div');
+            todoItem.classList.add('todo-item');
+            todoItem.dataset.id = item.id;
+
+            const titleSpan = document.createElement('span');
+            titleSpan.textContent = `${index + 1}. ${item.title}`;
+            if (item.completed) {
+                titleSpan.classList.add('isCompleted');
+            }
+            todoItem.appendChild(titleSpan);
+
+            const deleteButton = document.createElement('button');
+            deleteButton.textContent = '❌';
+            deleteButton.addEventListener('click', () => {
+                deleteTodoItem(index);
+            });
+            todoItem.appendChild(deleteButton);
+
+            const editButton = document.createElement('button');
+            editButton.textContent = '✏️';
+            editButton.addEventListener('click', () => {
+                editTodoItem(index);
+            });
+            todoItem.appendChild(editButton);
+
+            const saveButton = document.createElement('button');
+            saveButton.textContent = '✔️';
+            saveButton.addEventListener('click', () => {
+                completeTodoItem(index);
+            });
+            todoItem.appendChild(saveButton);
+
+            todoListDiv.appendChild(todoItem);
+        });
+    }
+
+    function deleteTodoItem(index) {
+        list.splice(index, 1);
+        render(list);
+    }
+
+    function editTodoItem(index) {
+        const item = list[index];
+        const todoItem = document.querySelectorAll('.todo-item')[index];
+        const titleSpan = todoItem.querySelector('span');
+        const input = document.createElement('input');
+        input.value = item.title;
+        input.addEventListener('blur', () => {
+            item.title = input.value;
+            render(list);
+        });
+        titleSpan.parentNode.replaceChild(input, titleSpan);
+    }
+
+    function completeTodoItem(index) {
+        const item = list[index];
+        item.completed = !item.completed;
+        render(list);
+    }
+
+    document.querySelector('#add-todo').addEventListener('click', () => {
+        const newTodo = document.querySelector('input');
+        list[list.length] = { id: nextId, title: newTodo.value, completed: false };
+        nextId++;
+        render(list);
+    });
+</script>
+
+</html>

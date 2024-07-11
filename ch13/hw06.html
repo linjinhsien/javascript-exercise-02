@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<!-- 6.請設計一網頁，讓使用者可以上傳圖片，須包含..
+
+檔案: <input type="file" accept="image/*">，供使用者選擇圖片
+圖片: <img>，用來預覽圖片
+ 提示: 須使用到URL型態的靜態方法createObjectURL()
+
+
+const url = URL.createObjectURL(file1.files[0]);
+// *註: file1是<input type="file">元素
+當使用者已選擇1個圖片，就動態生成第2個<input type="file">及<img>，..以此類推
+ -->
+<body>
+    <div id="div1">
+        <input type="file" accept="image/*">
+        <br>
+        <img style="width: 200px;">
+    </div>
+</body>
+<script>
+    const div1=document.querySelector('#div1');
+    handleDiv(div1);
+
+
+    //-----------------------------------//
+    function handleDiv(div){
+    const input = div.querySelector('input');
+    const img= div.querySelector('img');
+    input.value ='';
+    img.src ='';
+    
+    input.addEventListener('change',()=>{
+        const file =input.files[0];
+        img.src=URL.createObjectURL(file);
+        genNextDiv(div);
+    });
+}
+
+function genNextDiv(curDiv){
+    const curId =curDiv.id;
+    let seq= +curId.substring(3); 
+    seq++;
+    const div=curDiv.cloneNode(true);
+    div.id = `div${seq}`;
+    curDiv.after(div);
+    handleDiv(div);
+
+}
+
+
+
+
+
+//
+</script>
+</html>

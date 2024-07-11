@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=s, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table border="1">
+        <thead></thead>
+        <tbody></tbody>
+    </table>
+</body>
+<script>
+    //const colNames = ['編號', '使用者名稱', '密碼', '暱稱', '帳號啟用否', '註冊日期時間']; ---1
+    const colNames = [ '使用者名稱', '密碼', '暱稱', '帳號啟用否', '註冊日期時間'];
+const users = [
+    { id: 1, username: 'william1234', password: 'P@ssw0rd', nickname: 'William', pass: true, registerDateTime: '2016/12/05 12:34:56' },
+    { id: 2, username: 'sumi1101', password: '12345678', nickname: 'Sumi', pass: true, registerDateTime: '2022/09/01 11:22:33' },
+    { id: 3, username: 'reds1210', password: '!QAZ2wsx', nickname: 'Reds', pass: false, registerDateTime: '2015/03/06 10:20:30' }
+];
+
+/* <tr>
+            <th>編號</th>
+            <th>使用者名稱</th>
+            <th>密碼</th>
+            <th>暱稱</th>
+            <th>帳號啟用否</th>
+            <th>註冊日期時間</th>
+        </tr> */
+const thead =document.querySelector('thead');
+const tbody =document.querySelector('tbody');
+
+handleThead();
+handleTbody();
+
+function handleThead() {
+    const tr=document.createElement('tr');
+    for (let colName of colNames){
+        const th = document.createElement('th');
+        th.textContent=colName;
+        tr.append(th);
+    }
+    thead.append(tr);
+}
+
+
+
+
+function handleTbody() {
+    for (let user of users){
+        const tr=document.createElement('tr');
+        for (let key in user){
+            const value=user[key];  //--------------------------------------------------
+            if (key==='id'){
+                tr.dataset.id = value;
+            } else {
+                const td = document.createElement('td');
+            td.textContent=value;
+            tr.append(td)
+            }
+            /* const td = document.createElement('td');//---------------------------------
+            td.textContent=value;
+            tr.append(td); */
+        }
+        tbody.append(tr);
+    }
+}
+
+
+
+</script>
+</html>

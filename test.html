@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <input type="checkbox" value="js" name="skill">
+        <label>JavaScript</label>
+        <input type="checkbox" value="java" name="skill">
+        <label>Java</label>
+        <input type="checkbox" value="mysql" name="skill">
+        <label>MySQL</label>
+        <div>           
+        </div>
+    </body>
+    <script>
+
+        const div = document.querySelector('div');
+        //div.textContent ='<h1>Javascript</h1>';
+        div.innerHTML ='<scipt>Javascript</scipt>>';
+
+       const checkboxs = document.querySelectorAll('input');
+       for (const checkbox of checkboxs){
+        //checkbox.checked=true;
+        checkbox.setAttribute('checked',true);
+       }
+    </script>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+        <!-- 1.請設計一網頁，僅有一個<input>，監聽其click、change、input、focus、blur，在監聽器中印出 日期時間、事件名稱 -->
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>       
+</head>
+
+<body>
+        <input>
+</body>
+
+<script>
+        const input =document.querySelector('input');
+        input.onclick = () => {
+                console.log(`${new Date()}: click`);
+        };
+        input.onchange =() => {
+                console.log(`${new Date()}: change`);
+        };
+        input.oninput =() => {
+                console.log(`${new Date()}: input`);
+        };
+        input.onfocus=() => {
+                console.log(`${new Date()}: focus`);
+        };
+        input.onblur=() => {
+                console.log(`${new Date()}: blur`);
+        };
+</script>
